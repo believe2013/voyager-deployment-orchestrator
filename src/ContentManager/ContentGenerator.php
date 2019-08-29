@@ -172,6 +172,11 @@ TXT;
      */
     public function getMenuInsertStatements($dataType) : string
     {
+        $details = json_decode($dataType->details);
+
+        if (isset($details->menu) and isset($details->menu->generate) and $details->menu->generate === false)
+            return "\n";
+
         return sprintf(
             self::MENU_INSERT_STATEMENT,
             $dataType->display_name_plural,
